@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Senior Backend Engineer — Go, Java, distributed systems.{{ end }}">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --line:#e5e5e5; --link:#0b57d0; --code:#f5f5f5; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#111; --fg:#e8e8e8; --muted:#999; --line:#2a2a2a; --link:#8ab4f8; --code:#1d1d1d; }
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+main, header, footer { max-width: 44rem; margin: 0 auto; padding: 0 1rem; }
+header { display:flex; justify-content:space-between; align-items:center; padding-top:1.5rem; padding-bottom:1.5rem; }
+header a.name { font-weight:600; color:var(--fg); text-decoration:none; }
+nav a { margin-left:1rem; color:var(--muted); text-decoration:none; }
+nav a:hover, nav a.active { color:var(--fg); }
+a { color:var(--link); }
+h1 { font-size:1.8rem; line-height:1.25; margin:0 0 .25rem; }
+h2 { font-size:1.1rem; text-transform:uppercase; letter-spacing:.05em; border-bottom:1px solid var(--line); padding-bottom:.25rem; margin-top:2.5rem; }
+h3 { font-size:1.05rem; margin:1.75rem 0 0; }
+h3 + p { margin-top:.1rem; color:var(--muted); }
+.muted, time { color:var(--muted); font-size:.9rem; }
+pre { background:var(--code); padding:1rem; overflow-x:auto; border-radius:6px; }
+code { font-size:.9em; }
+img { max-width:100%; }
+ul.posts { list-style:none; padding:0; }
+ul.posts li { display:flex; gap:1rem; padding:.35rem 0; }
+ul.posts time { flex:0 0 6.5rem; }
+footer { color:var(--muted); font-size:.85rem; padding-top:3rem; padding-bottom:2rem; }
+button.print { font:inherit; font-size:.85rem; background:none; border:1px solid var(--line); color:var(--fg); border-radius:6px; padding:.2rem .7rem; cursor:pointer; }
+@media print {
+  header, footer, button.print { display:none; }
+  body { font-size:11pt; color:#000; background:#fff; }
+  a { color:#000; }
+  h2 { margin-top:1.25rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="name" href="/">enrinal</a>
+  <nav>
+    <a href="/"{{ if .IsHome }} class="active"{{ end }}>Resume</a>
+    <a href="/blog/"{{ if eq .Section "blog" }} class="active"{{ end }}>Blog</a>
+  </nav>
+</header>
+<main>
+{{ block "main" . }}{{ end }}
+</main>
+<footer>
+  <a href="https://github.com/enrinal">GitHub</a> · <a href="https://www.linkedin.com/in/enrinal">LinkedIn</a> · <a href="/blog/index.xml">RSS</a>
+</footer>
+</body>
+</html>

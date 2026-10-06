@@ -1,0 +1,12 @@
+# Change to the real domain once the is-a.dev record is live (RSS needs absolute links).
+baseURL = "/"
+languageCode = "en"
+title = "Muhamad Enrinal Zulhimar"
+disableKinds = ["taxonomy", "term"]
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+noClasses = true
+style = "github"

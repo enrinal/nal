@@ -1,0 +1,32 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.167.0"
+          extended: true
+
+      - run: hugo --minify
+
+      # The deploy user's key is locked to `rrsync -wo /var/www/portfolio` on the VPS: it can only write that folder.
+      - name: rsync to VPS
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          echo "43.173.27.95 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBNG5mVD1wYHNQffyRkV2J+6ePhxWeB7rN1LW4Uedl9Y" > ~/.ssh/known_hosts
+          rsync -rlcz --delete -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" public/ deploy@43.173.27.95:
