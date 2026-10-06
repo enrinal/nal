@@ -1,6 +1,7 @@
 # Change to the real domain once the is-a.dev record is live (RSS needs absolute links).
 baseURL = "/"
-languageCode = "en"
+locale = "en"
+timeZone = "Asia/Jakarta"
 title = "Muhamad Enrinal Zulhimar"
 disableKinds = ["taxonomy", "term"]
 
