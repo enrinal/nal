@@ -1,5 +1,4 @@
-# Change to the real domain once the is-a.dev record is live (RSS needs absolute links).
-baseURL = "/"
+baseURL = "https://naaal.duckdns.org/"
 locale = "en"
 timeZone = "Asia/Jakarta"
 title = "Muhamad Enrinal Zulhimar"
