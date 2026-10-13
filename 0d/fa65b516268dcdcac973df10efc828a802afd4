@@ -1,0 +1,21 @@
+.gitignore
+  s_138241dad571fa::t_10a30497effd06 4-6
+hugo.toml
+  s_138241dad571fa::t_4c1f70e3abb6c1 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "0dfa65b516268dcdcac973df10efc828a802afd4",
+  "prompts": {},
+  "sessions": {
+    "s_138241dad571fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "96719aed-f626-450e-afda-d34abcb1b2a2",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "enrinal <muhamadenrinal@gmail.com>"
+    }
+  }
+}
