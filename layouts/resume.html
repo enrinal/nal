@@ -1,0 +1,114 @@
+{{ define "head" }}
+<style>
+.cv { margin: clamp(2rem, 5vw, 3.5rem) 0 0; }
+.cv > section { max-width: 52rem; }
+.cv-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: end; padding-bottom: 1.1rem; border-bottom: 3px solid var(--ink); }
+.cv-head h1 { margin: 0; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.1rem); font-weight: 800; font-stretch: 80%; letter-spacing: -.025em; line-height: 1; }
+.cv-head .role { margin: .45rem 0 0; font-size: 1.2rem; font-weight: 600; font-stretch: 92%; }
+.cv-contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: 0; padding: 0; list-style: none; color: var(--ink-2); font-size: .95rem; }
+.cv-contact a { color: var(--ink); }
+.cv-contact li:first-child { flex-basis: 100%; }
+.cv section { display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 2rem; padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+.cv section:last-child { border-bottom: 0; }
+.cv h2 { margin: .2rem 0 0; font-size: .75rem; font-weight: 750; font-stretch: 85%; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.cv p { margin: 0; }
+.job + .job { margin-top: 1.6rem; }
+.job-line { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.job-line h3 { margin: 0; font-size: 1.2rem; font-weight: 800; font-stretch: 88%; letter-spacing: -.01em; }
+.job-line span { color: var(--ink-2); font-size: .92rem; white-space: nowrap; }
+.role-line { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-top: .7rem; font-weight: 650; }
+.role-line span { color: var(--ink-2); font-weight: 500; font-size: .92rem; white-space: nowrap; }
+.cv ul.items { margin: .4rem 0 0; padding-left: 1.1rem; }
+.cv ul.items li { margin-top: .3rem; line-height: 1.5; }
+.cv ul.items li::marker { content: "–  "; color: var(--ink-3); }
+.cv dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .35rem 1.25rem; }
+.cv dt { font-weight: 700; }
+.cv dd { margin: 0; }
+
+@media (max-width: 44rem) {
+  .cv-head { grid-template-columns: 1fr; }
+  .cv section { display: block; }
+  .cv h2 { margin-bottom: .7rem; }
+  .job-line, .role-line { flex-direction: column; gap: .1rem; }
+  .cv dl { grid-template-columns: 1fr; gap: 0; }
+  .cv dd + dt { margin-top: .5rem; }
+}
+
+@media print {
+  @page { size: A4; margin: 12mm 13mm; }
+  .cv { max-width: none; margin: 0; }
+  .cv-head { padding-bottom: 6pt; border-bottom-width: 2pt; }
+  .cv-head h1 { font-size: 21pt; }
+  .cv-head .role { font-size: 11pt; margin-top: 3pt; }
+  .cv-contact { font-size: 8.5pt; gap: 2pt 10pt; }
+  .cv section { grid-template-columns: 22mm minmax(0, 1fr); column-gap: 5mm; padding: 7pt 0; break-inside: auto; }
+  .cv h2 { font-size: 7.5pt; margin-top: 1pt; }
+  .job + .job { margin-top: 7pt; }
+  .job { break-inside: avoid-page; }
+  .job-line h3 { font-size: 10.5pt; }
+  .role-line { margin-top: 3pt; }
+  .job-line span, .role-line span { font-size: 8.5pt; }
+  .cv ul.items { margin-top: 2pt; }
+  .cv ul.items li { margin-top: 1.5pt; line-height: 1.38; }
+}
+</style>
+{{ end }}
+
+{{ define "main" }}
+{{ $r := site.Data.resume }}
+<article class="cv">
+  <header class="cv-head">
+    <div>
+      <h1>{{ $r.name }}</h1>
+      <p class="role">{{ $r.title }}</p>
+    </div>
+    <button class="btn no-print" type="button" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Save as PDF
+    </button>
+    <ul class="cv-contact">
+      <li>{{ $r.location }} ({{ $r.timezone }}) · {{ $r.availability }}</li>
+      <li><a href="mailto:{{ $r.email }}">{{ $r.email }}</a></li>
+      <li><a href="https://{{ $r.linkedin }}">{{ $r.linkedin }}</a></li>
+      <li><a href="https://{{ $r.github }}">{{ $r.github }}</a></li>
+    </ul>
+  </header>
+
+  <section><h2>Summary</h2><p>{{ $r.summary }}</p></section>
+
+  <section>
+    <h2>Experience</h2>
+    <div>
+      {{ range $r.experience }}
+      <div class="job">
+        <div class="job-line"><h3>{{ .company }}</h3><span>{{ .place }}</span></div>
+        {{ range .roles }}
+        <div class="role-line">{{ .title }}<span>{{ .dates }}</span></div>
+        <ul class="items">{{ range .items }}<li>{{ . }}</li>{{ end }}</ul>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  {{ with $r.teaching }}
+  <section>
+    <h2>Teaching</h2>
+    <div class="job">
+      <div class="job-line"><h3>{{ .company }}</h3><span>{{ .place }}</span></div>
+      <div class="role-line">{{ .title }}<span>{{ .dates }}</span></div>
+      <p style="margin-top:.35rem">{{ .text }}</p>
+    </div>
+  </section>
+  {{ end }}
+
+  <section>
+    <h2>Skills</h2>
+    <dl>{{ range $r.skills }}<dt>{{ .label }}</dt><dd>{{ .text }}</dd>{{ end }}</dl>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <dl><dt>Degree</dt><dd>{{ $r.education }}</dd><dt>Awards</dt><dd>{{ $r.awards }}</dd></dl>
+  </section>
+</article>
+{{ end }}

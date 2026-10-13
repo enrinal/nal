@@ -3,56 +3,151 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Senior Backend Engineer — Go, Java, distributed systems.{{ end }}">
+<title>{{ if .IsHome }}{{ site.Title }} · Senior Backend Engineer{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Senior Backend Engineer in Jakarta. Go and Java, flight booking and payment systems.{{ end }}">
+<meta name="theme-color" content="#ffffff">
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23d8231f'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23fff'/%3E%3C/svg%3E">
 <style>
-:root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --line:#e5e5e5; --link:#0b57d0; --code:#f5f5f5; }
-@media (prefers-color-scheme: dark) {
-  :root { --bg:#111; --fg:#e8e8e8; --muted:#999; --line:#2a2a2a; --link:#8ab4f8; --code:#1d1d1d; }
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+:root {
+  --paper: #ffffff;
+  --ink: #121212;
+  --ink-2: #4b4b48;
+  --ink-3: #6b6b67;
+  --rule: #dcdcd8;
+  --band: #f3f3f1;
+  --signal: #d8231f;
+  --signal-ink: #b51b17;
+  --measure: 68ch;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --wide: 72rem;
+  --ease: cubic-bezier(.16, 1, .3, 1);
 }
 * { box-sizing: border-box; }
-body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-main, header, footer { max-width: 44rem; margin: 0 auto; padding: 0 1rem; }
-header { display:flex; justify-content:space-between; align-items:center; padding-top:1.5rem; padding-bottom:1.5rem; }
-header a.name { font-weight:600; color:var(--fg); text-decoration:none; }
-nav a { margin-left:1rem; color:var(--muted); text-decoration:none; }
-nav a:hover, nav a.active { color:var(--fg); }
-a { color:var(--link); }
-h1 { font-size:1.8rem; line-height:1.25; margin:0 0 .25rem; }
-h2 { font-size:1.1rem; text-transform:uppercase; letter-spacing:.05em; border-bottom:1px solid var(--line); padding-bottom:.25rem; margin-top:2.5rem; }
-h3 { font-size:1.05rem; margin:1.75rem 0 0; }
-h3 + p { margin-top:.1rem; color:var(--muted); }
-.muted, time { color:var(--muted); font-size:.9rem; }
-pre { background:var(--code); padding:1rem; overflow-x:auto; border-radius:6px; }
-code { font-size:.9em; }
-img { max-width:100%; }
-ul.posts { list-style:none; padding:0; }
-ul.posts li { display:flex; gap:1rem; padding:.35rem 0; }
-ul.posts time { flex:0 0 6.5rem; }
-footer { color:var(--muted); font-size:.85rem; padding-top:3rem; padding-bottom:2rem; }
-button.print { font:inherit; font-size:.85rem; background:none; border:1px solid var(--line); color:var(--fg); border-radius:6px; padding:.2rem .7rem; cursor:pointer; }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--ink-3) var(--paper); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 "Archivo", system-ui, sans-serif;
+  font-stretch: 100%;
+  font-variant-numeric: tabular-nums;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--signal); color: #fff; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+a:hover { color: var(--signal-ink); }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+h1, h2, h3 { text-wrap: balance; }
+
+/* Station sign header */
+.site-head {
+  max-width: var(--wide); margin: 0 auto; padding: 1.25rem var(--gutter) 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-head .inner { display: contents; }
+.mark {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-weight: 800; font-stretch: 85%; font-size: 1.15rem; letter-spacing: -.01em;
+  text-decoration: none; color: var(--ink);
+}
+.mark i { width: .85rem; height: .85rem; background: var(--signal); display: block; }
+.site-head nav { display: flex; gap: .25rem; }
+.site-head nav a {
+  text-decoration: none; font-weight: 600; font-stretch: 90%; font-size: .95rem;
+  padding: .35rem .7rem; border: 1px solid transparent; color: var(--ink-2);
+}
+.site-head nav a:hover { color: var(--ink); border-color: var(--rule); }
+.site-head nav a[aria-current] { color: var(--paper); background: var(--ink); }
+.head-rule { max-width: var(--wide); margin: 1rem auto 0; padding: 0 var(--gutter); }
+.head-rule hr { border: 0; border-top: 3px solid var(--ink); margin: 0; }
+
+main { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Shared timetable pieces */
+.label {
+  font-size: .72rem; font-weight: 700; font-stretch: 85%;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
+}
+.section-title {
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem); font-weight: 800; font-stretch: 85%;
+  letter-spacing: -.015em; line-height: 1.1; margin: 0 0 1.5rem;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font: inherit; font-weight: 700; font-stretch: 90%; font-size: 1rem; line-height: 1;
+  padding: .85rem 1.15rem; border: 2px solid var(--ink); background: var(--paper); color: var(--ink);
+  text-decoration: none; cursor: pointer;
+  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+.btn.primary:hover { background: var(--signal-ink); border-color: var(--signal-ink); color: #fff; }
+.btn svg { width: 1.05em; height: 1.05em; flex: none; }
+
+/* Prose (blog) */
+.prose { max-width: var(--measure); font-size: 1.125rem; line-height: 1.7; }
+.prose h2 { font-size: 1.45rem; font-weight: 800; font-stretch: 90%; margin: 2.75rem 0 .75rem; line-height: 1.2; }
+.prose h3 { font-size: 1.15rem; font-weight: 750; margin: 2rem 0 .5rem; }
+.prose a { color: var(--signal-ink); }
+.prose a:hover { color: var(--ink); }
+.prose code { font: .88em/1.5 ui-monospace, "SF Mono", Menlo, monospace; background: var(--band); padding: .1em .3em; }
+.prose pre { background: var(--band); padding: 1rem 1.15rem; overflow-x: auto; border-top: 2px solid var(--ink); }
+.prose pre code { background: none; padding: 0; }
+.prose img { max-width: 100%; height: auto; }
+.prose blockquote { margin: 1.5rem 0; padding-left: 1.1rem; border-left: 1px solid var(--ink); color: var(--ink-2); }
+
+.site-foot {
+  max-width: var(--wide); margin: 6rem auto 0; padding: 1.25rem var(--gutter) 2.5rem;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem;
+  color: var(--ink-2); font-size: .9rem;
+}
+.site-foot .rule { flex-basis: 100%; border-top: 1px solid var(--ink); margin-bottom: .5rem; }
+.site-foot nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+
 @media print {
-  header, footer, button.print { display:none; }
-  body { font-size:11pt; color:#000; background:#fff; }
-  a { color:#000; }
-  h2 { margin-top:1.25rem; }
+  .site-head, .head-rule, .site-foot, .no-print { display: none !important; }
+  body { font-size: 9.5pt; line-height: 1.4; }
+  main { max-width: none; padding: 0; }
+  a { text-decoration: none; }
 }
 </style>
+{{ block "head" . }}{{ end }}
 </head>
 <body>
-<header>
-  <a class="name" href="/">enrinal</a>
-  <nav>
-    <a href="/"{{ if .IsHome }} class="active"{{ end }}>Resume</a>
-    <a href="/blog/"{{ if eq .Section "blog" }} class="active"{{ end }}>Blog</a>
+<header class="site-head">
+  <a class="mark" href="/"><i aria-hidden="true"></i>enrinal</a>
+  <nav aria-label="Main">
+    <a href="/"{{ if .IsHome }} aria-current="page"{{ end }}>Home</a>
+    <a href="/resume/"{{ if eq .RelPermalink "/resume/" }} aria-current="page"{{ end }}>Resume</a>
+    <a href="/blog/"{{ if eq .Section "blog" }} aria-current="page"{{ end }}>Blog</a>
   </nav>
 </header>
+<div class="head-rule"><hr></div>
 <main>
 {{ block "main" . }}{{ end }}
 </main>
-<footer>
-  <a href="https://github.com/enrinal">GitHub</a> · <a href="https://www.linkedin.com/in/enrinal">LinkedIn</a> · <a href="/blog/index.xml">RSS</a>
+{{ with site.Data.resume }}
+<footer class="site-foot">
+  <div class="rule"></div>
+  <span>{{ .name }} · {{ .location }} ({{ .timezone }})</span>
+  <nav aria-label="Elsewhere">
+    <a href="mailto:{{ .email }}">Email</a>
+    <a href="https://{{ .linkedin }}">LinkedIn</a>
+    <a href="https://{{ .github }}">GitHub</a>
+    <a href="/blog/index.xml">RSS</a>
+  </nav>
 </footer>
+{{ end }}
 </body>
 </html>

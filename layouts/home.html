@@ -1,4 +1,193 @@
+{{ define "head" }}
+<style>
+/* Departure board */
+.board { margin-top: clamp(2rem, 5vw, 3.5rem); }
+.board-row {
+  display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) 11rem 13rem; column-gap: 2rem;
+}
+.board-row.entry { align-items: start; }
+.since { font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem); font-weight: 700; font-stretch: 80%; line-height: 1.2; padding-top: .55rem; }
+.since small { display: block; font-size: .85rem; font-weight: 500; font-stretch: 100%; color: var(--ink-2); margin-top: .35rem; }
+.dest h1 {
+  margin: 0; font-weight: 800; font-stretch: 78%; letter-spacing: -.03em; line-height: .95;
+  font-size: clamp(2.6rem, 1.2rem + 5.4vw, 5.75rem);
+}
+.via { margin: 1rem 0 0; font-size: clamp(1.1rem, 1rem + .4vw, 1.35rem); font-weight: 600; font-stretch: 92%; line-height: 1.35; }
+.via span { color: var(--ink-2); font-weight: 450; }
+.cell { padding-top: .65rem; font-weight: 600; line-height: 1.35; }
+.cell small { display: block; font-weight: 450; color: var(--ink-2); margin-top: .2rem; }
+.status { color: var(--signal-ink); font-weight: 800; font-stretch: 85%; font-size: 1.1rem; text-transform: uppercase; letter-spacing: .02em; display: flex; align-items: center; gap: .5rem; }
+.status i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--signal); flex: none; }
+.board-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+.board-actions .spacer { flex: 1; }
+
+.summary {
+  margin: clamp(3rem, 7vw, 5rem) 0 0; max-width: 40ch;
+  font-size: clamp(1.3rem, 1.05rem + .9vw, 1.85rem); line-height: 1.35; font-weight: 500; font-stretch: 95%; letter-spacing: -.01em;
+}
+.summary strong { font-weight: 750; }
+
+/* Route: a vertical line through each company */
+.route-wrap { margin-top: clamp(4rem, 9vw, 6.5rem); display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 2rem; }
+.route-wrap .section-title { grid-column: 2; }
+.route { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; position: relative; }
+.stop:not(:last-child)::before {
+  content: ""; position: absolute; top: .8rem; bottom: -.8rem; left: calc(8.5rem + 2rem + .5rem - 1.5px);
+  width: 3px; background: var(--ink); transform-origin: top;
+}
+.stop { display: grid; grid-template-columns: 8.5rem 1rem minmax(0, 1fr); column-gap: 2rem; padding-bottom: 2.5rem; position: relative; }
+.stop:last-child { padding-bottom: 0; }
+.stop .years { font-weight: 700; font-stretch: 85%; font-size: 1.05rem; text-align: right; padding-top: .05rem; }
+.stop .dot { width: 1rem; height: 1rem; margin-top: .3rem; border: 3px solid var(--ink); background: var(--paper); border-radius: 50%; position: relative; z-index: 1; }
+.stop.now .dot { background: var(--signal); border-color: var(--signal); }
+.stop.now .dot::after {
+  content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--signal); opacity: 0;
+}
+.stop h3 { margin: 0; font-size: clamp(1.35rem, 1.1rem + .8vw, 1.75rem); font-weight: 800; font-stretch: 85%; letter-spacing: -.015em; line-height: 1.1; }
+.stop .roles { margin: .45rem 0 0; padding: 0; list-style: none; color: var(--ink-2); font-weight: 500; }
+.stop .roles li { display: flex; flex-wrap: wrap; gap: 0 .75rem; }
+.stop .roles b { color: var(--ink); font-weight: 650; }
+.stop p { margin: .6rem 0 0; max-width: 60ch; }
+.stop.side h3 { font-size: 1.2rem; }
+
+/* Notable work: a ruled timetable */
+.notable { margin-top: clamp(4.5rem, 10vw, 7rem); }
+.tt { width: 100%; border-collapse: collapse; }
+.tt th { text-align: left; padding: 0 1.5rem .6rem 0; border-bottom: 3px solid var(--ink); vertical-align: bottom; }
+.tt td { padding: 1rem 1.5rem 1rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+.tt tr:hover td { background: var(--band); }
+.tt td:first-child { font-weight: 750; font-stretch: 90%; font-size: 1.1rem; width: 28%; }
+.tt td:nth-child(2) { color: var(--ink-2); width: 34%; }
+.tt td:last-child { font-weight: 600; padding-right: 0; }
+
+/* Skills */
+.stack { margin-top: clamp(4.5rem, 10vw, 7rem); }
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 2rem; border-top: 3px solid var(--ink); }
+.skills p { margin: 0; padding-top: 1rem; line-height: 1.5; }
+.skills b { font-weight: 750; }
+
+/* Close */
+.close { margin-top: clamp(5rem, 11vw, 8rem); background: var(--ink); color: var(--paper); padding: clamp(2rem, 5vw, 3.5rem); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 3rem; align-items: end; }
+.close h2 { margin: 0; font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.4rem); font-weight: 800; font-stretch: 80%; letter-spacing: -.025em; line-height: 1; }
+.close p { margin: .9rem 0 0; color: #c9c9c5; max-width: 46ch; }
+.close .btn { border-color: var(--paper); background: var(--ink); color: var(--paper); }
+.close .btn:hover { background: var(--paper); color: var(--ink); }
+.close .btn.primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+.close .btn.primary:hover { background: #fff; border-color: #fff; color: var(--ink); }
+.close .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .stop.now .dot::after { animation: ping 2.4s var(--ease) .6s 1; }
+  @keyframes ping { 0% { opacity: .9; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.9); } }
+  @supports (animation-timeline: view()) {
+    .stop:not(:last-child)::before { animation: draw linear both; animation-timeline: view(); animation-range: entry 20% cover 50%; }
+    @keyframes draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  }
+}
+
+@media (max-width: 64rem) {
+  .board-row { grid-template-columns: 7rem minmax(0, 1fr) 10rem; }
+  .board-row > :nth-child(4) { grid-column: 2 / -1; }
+  .board-row.entry > .status-cell { grid-column: 2 / -1; margin-top: 1rem; }
+}
+@media (max-width: 44rem) {
+  .board-row.entry { display: block; padding-top: 1.25rem; }
+  .since { padding-top: 0; font-size: 1rem; font-stretch: 100%; display: flex; gap: .5rem; align-items: baseline; }
+  .since small { display: inline; margin: 0; }
+  .dest { margin-top: 1rem; }
+  .cell { padding-top: 1rem; }
+  .board-row.entry > .status-cell { margin-top: 0; }
+  .board-actions .spacer { display: none; }
+  .route-wrap { display: block; }
+  .stop:not(:last-child)::before { left: calc(.5rem - 1.5px); }
+  .stop { grid-template-columns: 1rem minmax(0, 1fr); column-gap: 1.1rem; }
+  .stop .years { grid-column: 2; grid-row: 1; text-align: left; font-size: .95rem; color: var(--ink-2); }
+  .stop .dot { grid-column: 1; grid-row: 1 / span 2; }
+  .stop .body { grid-column: 2; }
+  .tt thead { display: none; }
+  .tt, .tt tbody, .tt tr, .tt td { display: block; width: auto !important; }
+  .tt tr { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .tt tr:first-child { border-top: 3px solid var(--ink); }
+  .tt td { border: 0; padding: 0; }
+  .tt td + td { margin-top: .3rem; }
+  .skills { grid-template-columns: 1fr; }
+  .skills p + p { padding-top: .6rem; }
+  .close { grid-template-columns: 1fr; }
+}
+</style>
+{{ end }}
+
 {{ define "main" }}
-<button class="print" onclick="window.print()" style="float:right">Save as PDF</button>
-{{ .Content }}
+{{ $r := site.Data.resume }}
+{{ $now := index $r.experience 0 }}
+{{ $current := index $now.roles 0 }}
+{{ $mail := `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>` }}
+{{ $arrow := `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg>` }}
+
+<section class="board" aria-label="Introduction">
+  <div class="board-row entry">
+    <div class="since">{{ $now.from }}–now<small>at {{ $now.company }}</small></div>
+    <div class="dest">
+      <h1>{{ $r.name }}</h1>
+      <p class="via">{{ $current.title }}, {{ $now.company }} <span>· core flight booking services, Go and Java</span></p>
+    </div>
+    <div class="cell">{{ $r.location | replaceRE `, Indonesia` "" }}<small>{{ $r.timezone }}</small></div>
+    <div class="cell status-cell"><span class="status"><i aria-hidden="true"></i>Open to roles</span><small>{{ $r.availability }}</small></div>
+  </div>
+  <div class="board-actions">
+    <a class="btn primary" href="mailto:{{ $r.email }}">{{ $mail | safeHTML }}Email me</a>
+    <a class="btn" href="https://{{ $r.linkedin }}">LinkedIn</a>
+    <a class="btn" href="https://{{ $r.github }}">GitHub</a>
+    <span class="spacer"></span>
+    <a class="btn" href="/resume/">Full resume {{ $arrow | safeHTML }}</a>
+  </div>
+</section>
+
+<p class="summary">Backend engineer with <strong>8+ years</strong> building booking and payment systems in Go and Java. At Tiket.com I own the core flight booking services, which handle <strong>over 100,000 bookings a day</strong>.</p>
+
+<section class="route-wrap" aria-labelledby="route-title">
+  <h2 class="section-title" id="route-title">Route so far</h2>
+  <ol class="route">
+    {{ range $i, $e := $r.experience }}
+    <li class="stop{{ if eq $i 0 }} now{{ end }}">
+      <span class="years">{{ $e.from }}–{{ if eq $e.to "now" }}now{{ else }}{{ $e.to }}{{ end }}</span>
+      <span class="dot" aria-hidden="true"></span>
+      <div class="body">
+        <h3>{{ $e.company }}</h3>
+        <ul class="roles">
+          {{ range $e.roles }}<li><b>{{ .title }}</b> <span>{{ .dates }}</span></li>{{ end }}
+        </ul>
+        <p>{{ $e.stop }}</p>
+      </div>
+    </li>
+    {{ end }}
+  </ol>
+</section>
+
+<section class="notable" aria-labelledby="notable-title">
+  <h2 class="section-title" id="notable-title">Notable work</h2>
+  <table class="tt">
+    <thead><tr><th class="label" scope="col">Problem</th><th class="label" scope="col">Approach</th><th class="label" scope="col">Result</th></tr></thead>
+    <tbody>
+      {{ range $r.notable }}<tr><td>{{ .what }}</td><td>{{ .how }}</td><td>{{ .result }}</td></tr>
+      {{ end }}
+    </tbody>
+  </table>
+</section>
+
+<section class="stack" aria-labelledby="stack-title">
+  <h2 class="section-title" id="stack-title">Stack</h2>
+  <div class="skills">{{ range $r.skills }}<p><b>{{ .label }}.</b> {{ .text }}</p>{{ end }}</div>
+</section>
+
+<section class="close" aria-labelledby="close-title">
+  <div>
+    <h2 id="close-title">Hiring for a backend role?</h2>
+    <p>I'm in Jakarta ({{ $r.timezone }}) and open to relocation or remote work. Email or LinkedIn both reach me.</p>
+  </div>
+  <div class="actions">
+    <a class="btn primary" href="mailto:{{ $r.email }}">{{ $mail | safeHTML }}{{ $r.email }}</a>
+    <a class="btn" href="https://{{ $r.linkedin }}">LinkedIn</a>
+  </div>
+</section>
 {{ end }}
