@@ -1,6 +1,6 @@
 # nal
 
-Personal site: online resume (`/`) and blog (`/blog`), built with [Hugo](https://gohugo.io) and served by Caddy on a VPS.
+Personal site at https://enrinal.is-a.dev: about page (`/`), printable resume (`/resume/`), and blog (`/blog/`), built with [Hugo](https://gohugo.io) and served by Caddy on a VPS.
 
 ## Write a post
 
@@ -12,4 +12,6 @@ Preview locally with `hugo server -D` and open http://localhost:1313.
 
 ## Edit the resume
 
-Edit `content/_index.md`. The "Save as PDF" button prints the page with a print stylesheet.
+Edit `data/resume.yaml`. The home page and `/resume/` both render from it, so they never drift apart. Keep the phone number out: this file is published.
+
+The "Save as PDF" button on `/resume/` prints an A4 page with a print stylesheet.
