@@ -1,0 +1,112 @@
+# Single source for the home page and /resume/. Mirrors Resume_Muhamad_Enrinal_Z_INTL_v2.tex (Oct 2026).
+# The phone number is deliberately left out: this file is published.
+name: Muhamad Enrinal Zulhimar
+title: Senior Backend Engineer
+location: Jakarta, Indonesia
+timezone: UTC+7
+availability: Open to relocation and remote
+email: enrinaal@gmail.com
+linkedin: linkedin.com/in/enrinal
+github: github.com/enrinal
+
+summary: >-
+  Senior backend engineer with 8+ years of experience building booking and payment systems in Go and Java.
+  At Tiket.com I own the core flight booking services, which handle over 100,000 bookings a day, and I work
+  closely with the Hotel and Promo teams on cross-vertical projects.
+
+experience:
+  - company: Tiket.com
+    place: Jakarta, Indonesia
+    from: 2022
+    to: now
+    roles:
+      - title: Senior Backend Engineer II
+        dates: Jul 2026 – Present
+        items:
+          - Architected server-side cart lifecycle management for flight checkout, with abandoned-cart re-engagement, exactly-once push notifications, and one-tap recovery of expired carts. Built on Spring WebFlux, Redis, and Kafka.
+          - Designed idempotent booking with a distributed lock and request coalescing to fix a race condition that could book the same order twice with the airline. Retries across all 7 booking API versions now return the original booking.
+          - Root-caused and fixed an off-heap Netty memory leak that crashed every flight-cart pod about 12 times a month.
+          - Built booking health monitoring for the flight platform, with Grafana dashboards and alerts for drops in supplier booking success, spikes in business errors, and falls in order creation. Added cache hit-rate and Kafka consumer lag metrics across 4 services.
+          - Lead system design reviews, on-call, and incident post-mortems for a team of 5 engineers, and drive cross-vertical projects with the Hotel and Promo teams.
+      - title: Senior Software Engineer, Backend
+        dates: Aug 2022 – Jul 2026
+        items:
+          - Led the consolidation of fragmented MongoDB databases into a single cluster and redesigned the data model to eliminate cross-database joins, cutting p99 latency by 40% and database cost by about 30%; later adopted by other verticals.
+          - Cut Redis memory by about 75% with Brotli payload compression and jittered TTLs that prevent cache stampedes at peak traffic; later adopted by other verticals.
+          - Led the Flight + Hotel package booking, a cross-vertical project spanning two independent booking systems. Built a saga orchestrator in Go with compensating transactions, eliminating charged-but-unbooked orders.
+          - Built a rule-based pricing engine for add-ons that lets product teams launch pricing changes without a deployment, lifting upsell conversion by about 13%.
+    stop: Core flight booking services, over 100,000 bookings a day.
+
+  - company: SiCepat Express
+    place: Jakarta, Indonesia
+    from: 2021
+    to: 2022
+    roles:
+      - title: Software Engineer, Backend
+        dates: Jul 2021 – Jul 2022
+        items:
+          - Built idempotent event processing for shipment tracking on Kafka and Redis, so no event is lost or applied twice, improving shipment status accuracy by about 25%.
+          - Built an OCR pipeline to verify merchant ID cards automatically, cutting merchant onboarding time by about 50%.
+    stop: Idempotent shipment-tracking events on Kafka and Redis.
+
+  - company: Warung Pintar
+    place: Jakarta, Indonesia
+    from: 2020
+    to: 2021
+    roles:
+      - title: Software Engineer, Backend
+        dates: Jan 2020 – Jul 2021
+        items:
+          - Built the event-driven backend for the merchant sales platform, which scaled without a redesign as GMV grew 60%.
+          - Built Kafka-based notification and wallet services processing over 100,000 messages a day.
+    stop: Event-driven merchant sales platform; wallet and notifications on Kafka.
+
+  - company: Angsur
+    place: Bandar Lampung, Indonesia
+    from: 2018
+    to: 2019
+    roles:
+      - title: Software Engineer
+        dates: Jan 2018 – Oct 2019
+        items:
+          - Built REST APIs and internal tools for credit underwriting, reducing credit validation time by about 30%.
+    stop: Credit underwriting APIs and internal tools.
+
+teaching:
+  company: Ruangguru
+  place: Jakarta, Indonesia
+  title: Backend Engineering Instructor, part-time
+  dates: Feb 2022 – Jul 2024
+  text: Designed a backend course on Go, system design, and production operations, and mentored 5 university cohorts.
+
+# Home page "notable work" table. Every row restates a resume bullet; no new claims.
+notable:
+  - what: Idempotent flight booking
+    how: Distributed lock and request coalescing
+    result: Retries across all 7 booking API versions return the original booking
+  - what: MongoDB consolidation
+    how: One cluster, data model without cross-database joins
+    result: p99 latency −40%, database cost about −30%
+  - what: Redis memory
+    how: Brotli payload compression, jittered TTLs
+    result: Memory about −75%, no cache stampedes at peak
+  - what: Flight + Hotel package booking
+    how: Saga orchestrator in Go with compensating transactions
+    result: No more charged-but-unbooked orders
+  - what: Netty off-heap memory leak
+    how: Root-caused and fixed in flight-cart
+    result: Ended pod crashes that hit about 12 times a month
+  - what: Add-on pricing engine
+    how: Rule-based, changes ship without a deployment
+    result: Upsell conversion about +13%
+
+skills:
+  - label: Languages
+    text: Go, Java (Spring WebFlux, Project Reactor), Python, SQL
+  - label: Data and messaging
+    text: MongoDB, PostgreSQL, Redis, Elasticsearch, Kafka, NATS
+  - label: Infrastructure
+    text: GCP, Kubernetes, Docker, gRPC, GraphQL, distributed tracing, SLO alerting
+
+education: B.Eng. Informatics Engineering, Institut Teknologi Sumatera, 2020, Cum Laude (GPA 3.66/4.00)
+awards: ICPC Asia Jakarta Regional finalist, ranked 21st
