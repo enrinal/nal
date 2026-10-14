@@ -1,55 +1,49 @@
 {{ define "head" }}
 <style>
-.cv { margin: clamp(2rem, 5vw, 3.5rem) 0 0; }
-.cv > section { max-width: 52rem; }
-.cv-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: end; padding-bottom: 1.1rem; border-bottom: 3px solid var(--ink); }
-.cv-head h1 { margin: 0; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.1rem); font-weight: 800; font-stretch: 80%; letter-spacing: -.025em; line-height: 1; }
-.cv-head .role { margin: .45rem 0 0; font-size: 1.2rem; font-weight: 600; font-stretch: 92%; }
-.cv-contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: 0; padding: 0; list-style: none; color: var(--ink-2); font-size: .95rem; }
-.cv-contact a { color: var(--ink); }
+.cv-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .75rem 1.5rem; align-items: start; }
+.cv-head h1 { margin: 0; font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.4rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; }
+.cv-head .role { margin: .3rem 0 0; font-size: 1.15rem; color: var(--fg-2); }
+.cv-contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .2rem 1.25rem; margin: .25rem 0 0; padding: 0; list-style: none; color: var(--fg-2); font-size: .95rem; }
 .cv-contact li:first-child { flex-basis: 100%; }
-.cv section { display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 2rem; padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
-.cv section:last-child { border-bottom: 0; }
-.cv h2 { margin: .2rem 0 0; font-size: .75rem; font-weight: 750; font-stretch: 85%; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.cv section { margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--rule); }
+.cv h2 { margin: 0 0 1rem; font-size: 1.45rem; font-weight: 650; letter-spacing: -.015em; }
 .cv p { margin: 0; }
-.job + .job { margin-top: 1.6rem; }
-.job-line { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
-.job-line h3 { margin: 0; font-size: 1.2rem; font-weight: 800; font-stretch: 88%; letter-spacing: -.01em; }
-.job-line span { color: var(--ink-2); font-size: .92rem; white-space: nowrap; }
-.role-line { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-top: .7rem; font-weight: 650; }
-.role-line span { color: var(--ink-2); font-weight: 500; font-size: .92rem; white-space: nowrap; }
-.cv ul.items { margin: .4rem 0 0; padding-left: 1.1rem; }
-.cv ul.items li { margin-top: .3rem; line-height: 1.5; }
-.cv ul.items li::marker { content: "–  "; color: var(--ink-3); }
-.cv dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .35rem 1.25rem; }
-.cv dt { font-weight: 700; }
-.cv dd { margin: 0; }
-
-@media (max-width: 44rem) {
+.job + .job { margin-top: 2rem; }
+.job-line, .role-line { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.job-line h3 { margin: 0; font-size: 1.1rem; font-weight: 650; }
+.job-line span, .role-line span { color: var(--fg-3); font-size: .925rem; white-space: nowrap; }
+.role-line { margin-top: .6rem; font-weight: 550; color: var(--fg-2); }
+.cv ul.items { margin: .45rem 0 0; padding-left: 1.15rem; }
+.cv ul.items li { margin-top: .4rem; line-height: 1.6; }
+.cv ul.items li::marker { color: var(--fg-3); }
+.cv .note { margin-top: .4rem; }
+.cv dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .45rem 1.25rem; }
+.cv dt { font-weight: 600; }
+.cv dd { margin: 0; color: var(--fg-2); }
+@media (max-width: 34rem) {
   .cv-head { grid-template-columns: 1fr; }
-  .cv section { display: block; }
-  .cv h2 { margin-bottom: .7rem; }
-  .job-line, .role-line { flex-direction: column; gap: .1rem; }
+  .cv-head .btn { justify-self: start; }
+  .job-line, .role-line { flex-direction: column; gap: 0; }
   .cv dl { grid-template-columns: 1fr; gap: 0; }
-  .cv dd + dt { margin-top: .5rem; }
+  .cv dd + dt { margin-top: .6rem; }
 }
-
 @media print {
-  @page { size: A4; margin: 12mm 13mm; }
-  .cv { max-width: none; margin: 0; }
-  .cv-head { padding-bottom: 6pt; border-bottom-width: 2pt; }
-  .cv-head h1 { font-size: 21pt; }
-  .cv-head .role { font-size: 11pt; margin-top: 3pt; }
-  .cv-contact { font-size: 8.5pt; gap: 2pt 10pt; }
-  .cv section { grid-template-columns: 22mm minmax(0, 1fr); column-gap: 5mm; padding: 7pt 0; break-inside: auto; }
-  .cv h2 { font-size: 7.5pt; margin-top: 1pt; }
+  @page { size: A4; margin: 12mm 14mm; }
+  .cv-head h1 { font-size: 20pt; }
+  .cv-head .role { font-size: 11pt; margin-top: 2pt; }
+  .cv-contact { font-size: 8.5pt; gap: 1pt 10pt; }
+  .cv section { margin-top: 8pt; padding-top: 6pt; }
+  .cv h2 { font-size: 10.5pt; margin-bottom: 4pt; }
   .job + .job { margin-top: 7pt; }
   .job { break-inside: avoid-page; }
+  .cv h2 { break-after: avoid-page; }
+  .cv section:not(:nth-of-type(2)) { break-inside: avoid-page; }
   .job-line h3 { font-size: 10.5pt; }
   .role-line { margin-top: 3pt; }
   .job-line span, .role-line span { font-size: 8.5pt; }
   .cv ul.items { margin-top: 2pt; }
   .cv ul.items li { margin-top: 1.5pt; line-height: 1.38; }
+  .cv dl { gap: 2pt 10pt; }
 }
 </style>
 {{ end }}
@@ -62,8 +56,8 @@
       <h1>{{ $r.name }}</h1>
       <p class="role">{{ $r.title }}</p>
     </div>
-    <button class="btn no-print" type="button" onclick="window.print()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Save as PDF
+    <button class="btn ghost no-print" type="button" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Save as PDF
     </button>
     <ul class="cv-contact">
       <li>{{ $r.location }} ({{ $r.timezone }}) · {{ $r.availability }}</li>
@@ -96,7 +90,7 @@
     <div class="job">
       <div class="job-line"><h3>{{ .company }}</h3><span>{{ .place }}</span></div>
       <div class="role-line">{{ .title }}<span>{{ .dates }}</span></div>
-      <p style="margin-top:.35rem">{{ .text }}</p>
+      <p class="note">{{ .text }}</p>
     </div>
   </section>
   {{ end }}

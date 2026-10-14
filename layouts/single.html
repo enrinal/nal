@@ -1,18 +1,15 @@
 {{ define "head" }}
 <style>
-.post { max-width: var(--measure); margin: clamp(2rem, 5vw, 3.5rem) auto 0; }
-.post-meta { display: flex; gap: 1rem; padding-bottom: .6rem; border-bottom: 3px solid var(--ink); }
-.post h1 { margin: 1.25rem 0 0; font-size: clamp(2.1rem, 1.3rem + 3vw, 3.5rem); font-weight: 800; font-stretch: 80%; letter-spacing: -.025em; line-height: 1.02; }
-.post .lede { margin: 1rem 0 2.25rem; font-size: 1.3rem; color: var(--ink-2); line-height: 1.4; }
-.post-foot { max-width: var(--measure); margin: 3.5rem auto 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
-.post-foot a { font-weight: 650; text-decoration: none; }
-.post-foot a:hover { text-decoration: underline; }
+.post time { color: var(--fg-3); font-size: .95rem; }
+.post h1 { margin: .4rem 0 0; font-size: clamp(2rem, 1.5rem + 2vw, 2.6rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; }
+.post .lede { margin: .9rem 0 2.25rem; font-size: 1.25rem; color: var(--fg-2); line-height: 1.5; }
+.post-foot { margin: 3.5rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
 </style>
 {{ end }}
 
 {{ define "main" }}
 <article class="post">
-  <div class="post-meta"><time class="label" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time></div>
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
   <h1>{{ .Title }}</h1>
   {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
   <div class="prose">{{ .Content }}</div>

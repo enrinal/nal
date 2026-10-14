@@ -5,142 +5,118 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ site.Title }} · Senior Backend Engineer{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Senior Backend Engineer in Jakarta. Go and Java, flight booking and payment systems.{{ end }}">
-<meta name="theme-color" content="#ffffff">
-<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="color-scheme" content="light dark">
+<link rel="preload" href="/fonts/hanken.woff2" as="font" type="font/woff2" crossorigin>
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23d8231f'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%231f6f5c'/%3E%3C/svg%3E">
 <style>
-@font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo.woff2") format("woff2");
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
-  font-display: swap;
-}
+@font-face { font-family: "Hanken Grotesk"; src: url("/fonts/hanken.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Hanken Grotesk"; src: url("/fonts/hanken-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
 :root {
-  --paper: #ffffff;
-  --ink: #121212;
-  --ink-2: #4b4b48;
-  --ink-3: #6b6b67;
-  --rule: #dcdcd8;
-  --band: #f3f3f1;
-  --signal: #d8231f;
-  --signal-ink: #b51b17;
-  --measure: 68ch;
-  --gutter: clamp(1rem, 4vw, 2.5rem);
-  --wide: 72rem;
+  --bg: #fbfcfb;
+  --fg: #1d2220;
+  --fg-2: #4e5753;
+  --fg-3: #6c7571;
+  --rule: #e2e6e3;
+  --tint: #eef3f0;
+  --accent: #1f6f5c;
+  --accent-hover: #155244;
+  --on-accent: #ffffff;
+  --col: 40rem;
   --ease: cubic-bezier(.16, 1, .3, 1);
 }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141816;
+    --fg: #e4e9e6;
+    --fg-2: #a9b3ae;
+    --fg-3: #8a948f;
+    --rule: #2a312e;
+    --tint: #1c2220;
+    --accent: #6fcfb4;
+    --accent-hover: #93ddc8;
+    --on-accent: #0c1512;
+  }
+}
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--ink-3) var(--paper); }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--fg-3) var(--bg); }
 body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font: 400 1.0625rem/1.6 "Archivo", system-ui, sans-serif;
-  font-stretch: 100%;
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 400 1.0625rem/1.65 "Hanken Grotesk", system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
-  text-rendering: optimizeLegibility;
 }
-::selection { background: var(--signal); color: #fff; }
-a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
-a:hover { color: var(--signal-ink); }
-:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
-h1, h2, h3 { text-wrap: balance; }
+::selection { background: var(--accent); color: var(--on-accent); }
+a { color: var(--accent); text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); transition: text-decoration-color .25s var(--ease), color .25s var(--ease); }
+a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { text-wrap: balance; color: var(--fg); }
+p, li { text-wrap: pretty; }
 
-/* Station sign header */
-.site-head {
-  max-width: var(--wide); margin: 0 auto; padding: 1.25rem var(--gutter) 0;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-}
-.site-head .inner { display: contents; }
-.mark {
-  display: inline-flex; align-items: center; gap: .6rem;
-  font-weight: 800; font-stretch: 85%; font-size: 1.15rem; letter-spacing: -.01em;
-  text-decoration: none; color: var(--ink);
-}
-.mark i { width: .85rem; height: .85rem; background: var(--signal); display: block; }
-.site-head nav { display: flex; gap: .25rem; }
-.site-head nav a {
-  text-decoration: none; font-weight: 600; font-stretch: 90%; font-size: .95rem;
-  padding: .35rem .7rem; border: 1px solid transparent; color: var(--ink-2);
-}
-.site-head nav a:hover { color: var(--ink); border-color: var(--rule); }
-.site-head nav a[aria-current] { color: var(--paper); background: var(--ink); }
-.head-rule { max-width: var(--wide); margin: 1rem auto 0; padding: 0 var(--gutter); }
-.head-rule hr { border: 0; border-top: 3px solid var(--ink); margin: 0; }
+.wrap { max-width: calc(var(--col) + 2.5rem); margin: 0 auto; padding: 0 1.25rem; }
+.site-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-top: 2rem; padding-bottom: 2rem; }
+.site-head .name { font-weight: 650; color: var(--fg); text-decoration: none; letter-spacing: -.005em; }
+.site-head nav { display: flex; gap: 1.4rem; }
+.site-head nav a { color: var(--fg-2); text-decoration: none; }
+.site-head nav a:hover { color: var(--fg); }
+.site-head nav a[aria-current] { color: var(--fg); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: .45em; }
 
-main { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gutter); }
+main { padding-top: clamp(1rem, 4vw, 2.5rem); }
+.section { margin-top: 3.5rem; padding-top: 2.25rem; border-top: 1px solid var(--rule); }
+.section > h2 { margin: 0 0 1.1rem; font-size: 1.45rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.25; }
 
-/* Shared timetable pieces */
-.label {
-  font-size: .72rem; font-weight: 700; font-stretch: 85%;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
-}
-.section-title {
-  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem); font-weight: 800; font-stretch: 85%;
-  letter-spacing: -.015em; line-height: 1.1; margin: 0 0 1.5rem;
-}
 .btn {
-  display: inline-flex; align-items: center; gap: .55rem;
-  font: inherit; font-weight: 700; font-stretch: 90%; font-size: 1rem; line-height: 1;
-  padding: .85rem 1.15rem; border: 2px solid var(--ink); background: var(--paper); color: var(--ink);
-  text-decoration: none; cursor: pointer;
-  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+  display: inline-flex; align-items: center; gap: .5rem;
+  font: inherit; font-weight: 600; font-size: 1rem; line-height: 1;
+  padding: .8rem 1.15rem; border-radius: .5rem; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--on-accent); text-decoration: none; cursor: pointer;
+  transition: background-color .2s var(--ease), border-color .2s var(--ease);
 }
-.btn:hover { background: var(--ink); color: var(--paper); }
-.btn.primary { background: var(--signal); border-color: var(--signal); color: #fff; }
-.btn.primary:hover { background: var(--signal-ink); border-color: var(--signal-ink); color: #fff; }
+.btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--on-accent); }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--rule); }
+.btn.ghost:hover { border-color: var(--fg-3); color: var(--fg); background: var(--tint); }
 .btn svg { width: 1.05em; height: 1.05em; flex: none; }
 
-/* Prose (blog) */
-.prose { max-width: var(--measure); font-size: 1.125rem; line-height: 1.7; }
-.prose h2 { font-size: 1.45rem; font-weight: 800; font-stretch: 90%; margin: 2.75rem 0 .75rem; line-height: 1.2; }
-.prose h3 { font-size: 1.15rem; font-weight: 750; margin: 2rem 0 .5rem; }
-.prose a { color: var(--signal-ink); }
-.prose a:hover { color: var(--ink); }
-.prose code { font: .88em/1.5 ui-monospace, "SF Mono", Menlo, monospace; background: var(--band); padding: .1em .3em; }
-.prose pre { background: var(--band); padding: 1rem 1.15rem; overflow-x: auto; border-top: 2px solid var(--ink); }
+.prose { font-size: 1.125rem; line-height: 1.75; }
+.prose h2 { font-size: 1.35rem; font-weight: 650; margin: 2.75rem 0 .6rem; line-height: 1.3; }
+.prose h3 { font-size: 1.15rem; font-weight: 650; margin: 2rem 0 .5rem; }
+.prose code { font: .86em/1.5 ui-monospace, "SF Mono", Menlo, monospace; background: var(--tint); padding: .12em .35em; border-radius: .25rem; }
+.prose pre { background: var(--tint); padding: 1rem 1.15rem; overflow-x: auto; border-radius: .5rem; }
 .prose pre code { background: none; padding: 0; }
-.prose img { max-width: 100%; height: auto; }
-.prose blockquote { margin: 1.5rem 0; padding-left: 1.1rem; border-left: 1px solid var(--ink); color: var(--ink-2); }
+.prose img { max-width: 100%; height: auto; border-radius: .5rem; }
+.prose blockquote { margin: 1.5rem 0; padding-left: 1.1rem; border-left: 1px solid var(--rule); color: var(--fg-2); }
+.prose ul { padding-left: 1.2rem; }
 
-.site-foot {
-  max-width: var(--wide); margin: 6rem auto 0; padding: 1.25rem var(--gutter) 2.5rem;
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem;
-  color: var(--ink-2); font-size: .9rem;
-}
-.site-foot .rule { flex-basis: 100%; border-top: 1px solid var(--ink); margin-bottom: .5rem; }
-.site-foot nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.site-foot a { text-decoration: none; }
-.site-foot a:hover { text-decoration: underline; }
+.site-foot { margin-top: 5rem; padding-top: 1.5rem; padding-bottom: 3rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 1.5rem; color: var(--fg-3); font-size: .925rem; }
+.site-foot nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.site-foot a { color: var(--fg-2); text-decoration: none; }
+.site-foot a:hover { color: var(--fg); text-decoration: underline; }
 
 @media print {
-  .site-head, .head-rule, .site-foot, .no-print { display: none !important; }
+  :root { --bg: #fff; --fg: #000; --fg-2: #333; --fg-3: #555; --rule: #ccc; --accent: #000; }
+  .site-head, .site-foot, .no-print { display: none !important; }
   body { font-size: 9.5pt; line-height: 1.4; }
-  main { max-width: none; padding: 0; }
-  a { text-decoration: none; }
+  .wrap { max-width: none; padding: 0; }
+  main { padding: 0; }
+  a { text-decoration: none; color: inherit; }
 }
 </style>
 {{ block "head" . }}{{ end }}
 </head>
 <body>
+<div class="wrap">
 <header class="site-head">
-  <a class="mark" href="/"><i aria-hidden="true"></i>enrinal</a>
+  <a class="name" href="/">{{ with site.Data.resume }}{{ .name }}{{ end }}</a>
   <nav aria-label="Main">
-    <a href="/"{{ if .IsHome }} aria-current="page"{{ end }}>Home</a>
     <a href="/resume/"{{ if eq .RelPermalink "/resume/" }} aria-current="page"{{ end }}>Resume</a>
     <a href="/blog/"{{ if eq .Section "blog" }} aria-current="page"{{ end }}>Blog</a>
   </nav>
 </header>
-<div class="head-rule"><hr></div>
 <main>
 {{ block "main" . }}{{ end }}
 </main>
 {{ with site.Data.resume }}
 <footer class="site-foot">
-  <div class="rule"></div>
-  <span>{{ .name }} · {{ .location }} ({{ .timezone }})</span>
+  <span>{{ .location }} · {{ .timezone }}</span>
   <nav aria-label="Elsewhere">
     <a href="mailto:{{ .email }}">Email</a>
     <a href="https://{{ .linkedin }}">LinkedIn</a>
@@ -149,5 +125,6 @@ main { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gutter); }
   </nav>
 </footer>
 {{ end }}
+</div>
 </body>
 </html>
