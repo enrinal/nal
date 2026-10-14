@@ -1,0 +1,33 @@
+.impeccable/surfaces/layouts-home-html.md
+  s_138241dad571fa::t_45a6ac66aa436a 5,10,14,16,18,20,22
+PRODUCT.md
+  s_138241dad571fa::t_8e83cc44a0e230 24-28
+.impeccable/design.json
+  s_5c65c47efce06c::t_bf41c75817985d 3,7-10,13-18,22,25,33-35,38,40-43,46-50,53-57,60,62-64,67,69-71,74-78,82-83,85-89,92-95,98-101,104-107
+DESIGN.md
+  s_5c65c47efce06c::t_a9bd03dce153af 3,5-22,25-29,31-34,37-40,42,45-55,57-60,62-66,69-73,75-89,96,98,100,103-107,111,114-115,118-122,125-126,130-132,134,137-142,145-146,150,154,158,163-166,168-169,171-172,174-175,177-178,183-186,189-192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "52708c5cd3787583bc20dc3082876a7ae63f0db5",
+  "prompts": {},
+  "sessions": {
+    "s_138241dad571fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "96719aed-f626-450e-afda-d34abcb1b2a2",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "enrinal <muhamadenrinal@gmail.com>"
+    },
+    "s_5c65c47efce06c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ab9705eaf7c32a7d3",
+        "model": "unknown"
+      },
+      "human_author": "enrinal <muhamadenrinal@gmail.com>"
+    }
+  }
+}
