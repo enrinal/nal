@@ -21,6 +21,11 @@ Senior backend engineer who owns correctness-critical booking and payment system
 - Content source: ~/Downloads/Resume_Muhamad_Enrinal_Z_INTL_v2.tex (Oct 2026).
 - Public contact: email, LinkedIn, GitHub only. The phone number is never published.
 
+## Brand Commitments
+- Calm and personal, in the style of imantumorang.com (user choice, 2026-10-14): one readable column, first-person intro, what I'm doing now, then links. The Oct 2026 railway-timetable layout was rejected as feeling odd.
+- No photo.
+- Copy reads like natural engineer English: "Did X to solve Y, result Z." No jargon stacks.
+
 ## Evidence on Hand
 Only the resume's claims and numbers. No testimonials, logos, photos, or project screenshots exist; do not invent any.
 
