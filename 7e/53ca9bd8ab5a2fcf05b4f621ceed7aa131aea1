@@ -1,0 +1,22 @@
+data/resume.yaml
+  s_138241dad571fa::t_bbc33a394949e8 26
+  s_138241dad571fa::t_618d5087a3fa4c 17-19,21,27,49
+  s_138241dad571fa::t_2479a1bf1cfe56 61,73,84
+  s_138241dad571fa::t_7c11a1c486cb1b 20,22-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "7e53ca9bd8ab5a2fcf05b4f621ceed7aa131aea1",
+  "prompts": {},
+  "sessions": {
+    "s_138241dad571fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "96719aed-f626-450e-afda-d34abcb1b2a2",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "enrinal <muhamadenrinal@gmail.com>"
+    }
+  }
+}
