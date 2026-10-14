@@ -1,14 +1,16 @@
 {{ define "head" }}
 <style>
-.page-title { margin: 0; font-size: clamp(2rem, 1.5rem + 2vw, 2.6rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; }
-.page-intro { margin: .75rem 0 0; color: var(--fg-2); font-size: 1.2rem; }
-.posts { list-style: none; margin: 2.5rem 0 0; padding: 0; border-top: 1px solid var(--rule); }
-.posts li { padding: 1.25rem 0; border-bottom: 1px solid var(--rule); }
-.posts time { display: block; color: var(--fg-3); font-size: .925rem; }
-.posts a { display: inline-block; margin-top: .2rem; font-size: 1.2rem; font-weight: 600; color: var(--fg); text-decoration: none; }
-.posts a:hover { color: var(--accent); }
-.posts p { margin: .3rem 0 0; color: var(--fg-2); }
-.posts .empty { color: var(--fg-2); }
+.page-title { margin: clamp(2rem, 5vw, 3.5rem) 0 0; font-size: clamp(2.4rem, 1.4rem + 3.5vw, 4.25rem); font-weight: 800; font-stretch: 78%; letter-spacing: -.03em; line-height: 1; }
+.page-intro { margin: .9rem 0 0; color: var(--ink-2); font-size: 1.15rem; max-width: 52ch; }
+.posts { list-style: none; margin: 2.5rem 0 0; padding: 0; border-top: 3px solid var(--ink); }
+.posts li { border-bottom: 1px solid var(--rule); }
+.posts a { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 2rem; padding: 1.1rem 0; text-decoration: none; }
+.posts a:hover { background: var(--band); color: var(--ink); }
+.posts time { font-weight: 700; font-stretch: 85%; color: var(--ink-2); padding-top: .15rem; }
+.posts strong { display: block; font-size: 1.3rem; font-weight: 750; font-stretch: 90%; line-height: 1.2; }
+.posts span { display: block; margin-top: .3rem; color: var(--ink-2); }
+.posts .empty { padding: 1.1rem 0; color: var(--ink-2); }
+@media (max-width: 44rem) { .posts a { grid-template-columns: 1fr; row-gap: .3rem; } }
 </style>
 {{ end }}
 
@@ -17,7 +19,7 @@
 {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ else }}<p class="page-intro">Notes on backend systems, and on how this site is built.</p>{{ end }}
 <ul class="posts">
 {{ range .Pages }}
-  <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ with .Description }}<p>{{ . }}</p>{{ end }}</li>
+  <li><a href="{{ .RelPermalink }}"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time><div><strong>{{ .Title }}</strong>{{ with .Description }}<span>{{ . }}</span>{{ end }}</div></a></li>
 {{ else }}
   <li class="empty">No posts yet.</li>
 {{ end }}

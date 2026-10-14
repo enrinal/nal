@@ -1,28 +1,34 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-14T00:00:00Z",
+  "generatedAt": "2026-10-13T00:00:00Z",
   "title": "Design System: enrinal.is-a.dev",
   "extensions": {
     "colorMeta": {
-      "green": { "role": "primary", "displayName": "Forest Green", "canonical": "#1f6f5c", "tonalRamp": ["#0a2d25", "#0f4034", "#155244", "#1f6f5c", "#3f8f7b", "#6fcfb4", "#a9e3d2", "#dcf3ec"] },
-      "green-deep": { "role": "primary", "displayName": "Deep Forest", "canonical": "#155244", "tonalRamp": ["#071f1a", "#0c3027", "#115040", "#155244", "#2a7360", "#4f9783", "#8fc3b4", "#d3e8e1"] },
-      "ground": { "role": "neutral", "displayName": "Cool Paper", "canonical": "#fbfcfb", "tonalRamp": ["#141816", "#1c2220", "#2a312e", "#6c7571", "#a9b3ae", "#e2e6e3", "#eef3f0", "#fbfcfb"] },
-      "ink": { "role": "neutral", "displayName": "Soft Ink", "canonical": "#1d2220", "tonalRamp": ["#0c1512", "#141816", "#1d2220", "#4e5753", "#6c7571", "#8a948f", "#a9b3ae", "#e4e9e6"] }
+      "signal": { "role": "primary", "displayName": "Signal Red", "canonical": "#d8231f", "tonalRamp": ["#3a0a08","#5e0f0c","#8a1512","#b51b17","#d8231f","#e8574f","#f19a94","#fbdedc"] },
+      "signal-ink": { "role": "primary", "displayName": "Signal Ink", "canonical": "#b51b17", "tonalRamp": ["#3a0a08","#5e0f0c","#8a1512","#b51b17","#d8231f","#e8574f","#f19a94","#fbdedc"] },
+      "paper": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#dcdcd8","#f3f3f1","#ffffff"] },
+      "ink": { "role": "neutral", "displayName": "Ink Black", "canonical": "#121212", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#dcdcd8","#f3f3f1","#ffffff"] },
+      "ink-2": { "role": "neutral", "displayName": "Graphite", "canonical": "#4b4b48", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#dcdcd8","#f3f3f1","#ffffff"] },
+      "ink-3": { "role": "neutral", "displayName": "Pencil", "canonical": "#6b6b67", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#dcdcd8","#f3f3f1","#ffffff"] },
+      "rule": { "role": "neutral", "displayName": "Rule Grey", "canonical": "#dcdcd8", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#dcdcd8","#f3f3f1","#ffffff"] },
+      "band": { "role": "neutral", "displayName": "Band Grey", "canonical": "#f3f3f1", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#dcdcd8","#f3f3f1","#ffffff"] },
+      "ink-on-close": { "role": "neutral", "displayName": "Soft Ink Text", "canonical": "#c9c9c5", "tonalRamp": ["#121212","#2e2e2c","#4b4b48","#6b6b67","#a8a8a4","#c9c9c5","#f3f3f1","#ffffff"] }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Page h1: greeting, resume name, blog and post titles." },
-      "headline": { "displayName": "Headline", "purpose": "Section h2 separated by hairline rules." },
-      "title": { "displayName": "Title", "purpose": "Job, company, and post titles." },
-      "body": { "displayName": "Body", "purpose": "Default running text, 1.65 line height." },
-      "lede": { "displayName": "Lede", "purpose": "Intro paragraphs and page intros." },
-      "meta": { "displayName": "Meta", "purpose": "Dates and contact lines in quiet ink." }
+      "display": { "displayName": "Display", "purpose": "Name on the home board and blog index title; Archivo at 78% width." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles." },
+      "title": { "displayName": "Title", "purpose": "Company names on the route." },
+      "body": { "displayName": "Body", "purpose": "Reading text with tabular figures." },
+      "label": { "displayName": "Label", "purpose": "Uppercase table heads and resume section names." }
     },
     "shadows": [],
     "motion": [
-      { "name": "ease", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Link underline, color, and button background transitions (200-250ms)." }
+      { "name": "ease", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Button fill swaps (0.2s) and the one-shot ping on the now dot (2.4s)." },
+      { "name": "route-draw", "value": "scaleY(0 to 1), scroll-driven view() timeline, entry 20% to cover 50%", "purpose": "Route line draws downward as stops enter view; static under prefers-reduced-motion." }
     ],
     "breakpoints": [
-      { "name": "narrow", "value": "34rem" }
+      { "name": "board-collapse", "value": "64rem" },
+      { "name": "stack", "value": "44rem" }
     ]
   },
   "components": [
@@ -30,81 +36,89 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The single filled action per row, e.g. Email me.",
-      "html": "<a class=\"ds-btn\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m4 7 8 6 8-6\"/></svg>Email me</a>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; font-size: 1rem; line-height: 1; padding: .8rem 1.15rem; border-radius: .5rem; border: 1px solid #1f6f5c; background: #1f6f5c; color: #fff; text-decoration: none; cursor: pointer; transition: background-color .2s cubic-bezier(.16,1,.3,1), border-color .2s cubic-bezier(.16,1,.3,1); } .ds-btn svg { width: 1.05em; height: 1.05em; } .ds-btn:hover { background: #155244; border-color: #155244; } .ds-btn:focus-visible { outline: 2px solid #1f6f5c; outline-offset: 3px; }"
+      "description": "The single red action; square, 2px border.",
+      "html": "<a class=\"ds-btn ds-primary\" href=\"#\">Email me</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.55rem;font:700 1rem/1 Archivo,system-ui,sans-serif;font-stretch:90%;padding:.85rem 1.15rem;border:2px solid #121212;background:#fff;color:#121212;text-decoration:none;cursor:pointer;transition:background-color .2s cubic-bezier(.16,1,.3,1),color .2s,border-color .2s}.ds-btn:hover{background:#121212;color:#fff}.ds-primary{background:#d8231f;border-color:#d8231f;color:#fff}.ds-primary:hover{background:#b51b17;border-color:#b51b17;color:#fff}.ds-btn:focus-visible{outline:2px solid #d8231f;outline-offset:3px}"
     },
     {
-      "name": "Ghost Button",
+      "name": "Secondary Button",
       "kind": "button",
-      "refersTo": "button-ghost",
-      "description": "Secondary action such as Save as PDF.",
-      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Save as PDF</button>",
-      "css": ".ds-btn-ghost { font: inherit; font-weight: 600; font-size: 1rem; line-height: 1; padding: .8rem 1.15rem; border-radius: .5rem; border: 1px solid #e2e6e3; background: transparent; color: #1d2220; cursor: pointer; transition: background-color .2s cubic-bezier(.16,1,.3,1), border-color .2s cubic-bezier(.16,1,.3,1); } .ds-btn-ghost:hover { border-color: #6c7571; background: #eef3f0; } .ds-btn-ghost:focus-visible { outline: 2px solid #1f6f5c; outline-offset: 3px; }"
+      "refersTo": "button",
+      "description": "Paper fill, ink border; inverts on hover.",
+      "html": "<a class=\"ds-btn\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;font:700 1rem/1 Archivo,system-ui,sans-serif;font-stretch:90%;padding:.85rem 1.15rem;border:2px solid #121212;background:#fff;color:#121212;text-decoration:none;transition:background-color .2s,color .2s}.ds-btn:hover{background:#121212;color:#fff}.ds-btn:focus-visible{outline:2px solid #d8231f;outline-offset:3px}"
     },
     {
-      "name": "Text Link",
-      "kind": "custom",
-      "description": "Green link with a faint underline that solidifies on hover.",
-      "html": "<a class=\"ds-link\" href=\"#\">LinkedIn</a>",
-      "css": ".ds-link { color: #1f6f5c; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; text-decoration-color: color-mix(in srgb, #1f6f5c 40%, transparent); transition: text-decoration-color .25s cubic-bezier(.16,1,.3,1), color .25s cubic-bezier(.16,1,.3,1); } .ds-link:hover { color: #155244; text-decoration-color: currentColor; } .ds-link:focus-visible { outline: 2px solid #1f6f5c; outline-offset: 3px; border-radius: 2px; }"
-    },
-    {
-      "name": "Navigation",
+      "name": "Header Navigation",
       "kind": "nav",
-      "description": "Name left, two links right; current page gets a 2px green underline.",
-      "html": "<header class=\"ds-nav\"><a class=\"ds-name\" href=\"#\">Enrinal</a><nav><a href=\"#\" aria-current=\"page\">Resume</a><a href=\"#\">Blog</a></nav></header>",
-      "css": ".ds-nav { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1rem 0; color: #1d2220; } .ds-name { font-weight: 650; color: #1d2220; text-decoration: none; letter-spacing: -.005em; } .ds-nav nav { display: flex; gap: 1.4rem; } .ds-nav nav a { color: #4e5753; text-decoration: none; } .ds-nav nav a:hover { color: #1d2220; } .ds-nav nav a[aria-current] { color: #1d2220; text-decoration: underline; text-decoration-color: #1f6f5c; text-decoration-thickness: 2px; text-underline-offset: .45em; } .ds-nav a:focus-visible { outline: 2px solid #1f6f5c; outline-offset: 3px; }"
+      "refersTo": "nav-link-current",
+      "description": "Wordmark with red square, three links, current page as ink block, 3px ink rule below.",
+      "html": "<header class=\"ds-head\"><a class=\"ds-mark\" href=\"#\"><i></i>enrinal</a><nav><a href=\"#\" aria-current=\"page\">Home</a><a href=\"#\">Resume</a><a href=\"#\">Blog</a></nav></header><hr class=\"ds-rule\">",
+      "css": ".ds-head{display:flex;align-items:center;justify-content:space-between;font-family:Archivo,system-ui,sans-serif}.ds-mark{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-stretch:85%;font-size:1.15rem;text-decoration:none;color:#121212}.ds-mark i{width:.85rem;height:.85rem;background:#d8231f;display:block}.ds-head nav{display:flex;gap:.25rem}.ds-head nav a{text-decoration:none;font-weight:600;font-stretch:90%;font-size:.95rem;padding:.35rem .7rem;border:1px solid transparent;color:#4b4b48}.ds-head nav a:hover{color:#121212;border-color:#dcdcd8}.ds-head nav a[aria-current]{color:#fff;background:#121212}.ds-head nav a:focus-visible{outline:2px solid #d8231f;outline-offset:3px}.ds-rule{border:0;border-top:3px solid #121212;margin:1rem 0 0}"
     },
     {
-      "name": "Availability Line",
+      "name": "Departure Board Entry",
       "kind": "custom",
-      "description": "Status dot with a single sentence; not a badge.",
-      "html": "<p class=\"ds-open\"><i aria-hidden=\"true\"></i>Open to senior backend roles, remote or with relocation.</p>",
-      "css": ".ds-open { display: flex; align-items: center; gap: .6rem; margin: 0; color: #1d2220; font-weight: 550; } .ds-open i { width: .55rem; height: .55rem; border-radius: 50%; background: #1f6f5c; flex: none; }"
+      "refersTo": "display",
+      "description": "Years, name at display scale, role, place, red status.",
+      "html": "<div class=\"ds-board\"><div class=\"ds-since\">2022-now</div><div><div class=\"ds-name\">Name Surname</div><p class=\"ds-via\">Senior Backend Engineer II, Tiket.com</p></div><div class=\"ds-status\"><i></i>Open to roles</div></div>",
+      "css": ".ds-board{display:grid;grid-template-columns:8.5rem 1fr 13rem;column-gap:2rem;font-family:Archivo,system-ui,sans-serif;color:#121212;font-variant-numeric:tabular-nums}.ds-since{font-size:1.6rem;font-weight:700;font-stretch:80%;padding-top:.55rem}.ds-name{font-size:3.6rem;font-weight:800;font-stretch:78%;letter-spacing:-.03em;line-height:.95}.ds-via{margin:1rem 0 0;font-size:1.2rem;font-weight:600;font-stretch:92%}.ds-status{display:flex;align-items:center;gap:.5rem;padding-top:.65rem;color:#b51b17;font-weight:800;font-stretch:85%;font-size:1.1rem;text-transform:uppercase}.ds-status i{width:.6rem;height:.6rem;border-radius:50%;background:#d8231f}"
     },
     {
-      "name": "Dated Row",
+      "name": "Route Stop",
       "kind": "custom",
-      "description": "Date column, title, one-line description, hairline below.",
-      "html": "<div class=\"ds-row\"><span class=\"ds-when\">2021–2024</span><div><h3>Senior Engineer <span>Company</span></h3><p>One line on what was owned.</p></div></div>",
-      "css": ".ds-row { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .1rem 1.25rem; padding: 1rem 0; border-bottom: 1px solid #e2e6e3; color: #1d2220; } .ds-when { color: #6c7571; font-size: .95rem; padding-top: .1rem; } .ds-row h3 { margin: 0; font-size: 1.0625rem; font-weight: 600; line-height: 1.45; } .ds-row h3 span { color: #4e5753; font-weight: 400; } .ds-row h3 span::before { content: \"· \"; } .ds-row p { margin: .3rem 0 0; color: #4e5753; }"
+      "refersTo": "title",
+      "description": "Years, ringed station dot, company title; the current stop is red.",
+      "html": "<ol class=\"ds-route\"><li class=\"ds-stop ds-now\"><span class=\"ds-years\">2022-now</span><span class=\"ds-dot\"></span><div><h3>Tiket.com</h3><p>Current stop.</p></div></li><li class=\"ds-stop\"><span class=\"ds-years\">2019-2022</span><span class=\"ds-dot\"></span><div><h3>SiCepat</h3><p>Earlier stop.</p></div></li></ol>",
+      "css": ".ds-route{list-style:none;margin:0;padding:0;font-family:Archivo,system-ui,sans-serif;color:#121212}.ds-stop{display:grid;grid-template-columns:8.5rem 1rem 1fr;column-gap:2rem;padding-bottom:2.5rem;position:relative}.ds-stop:not(:last-child)::before{content:\"\";position:absolute;top:.8rem;bottom:-.8rem;left:calc(8.5rem + 2rem + .5rem - 1.5px);width:3px;background:#121212}.ds-years{font-weight:700;font-stretch:85%;font-size:1.05rem;text-align:right}.ds-dot{width:1rem;height:1rem;margin-top:.3rem;border:3px solid #121212;background:#fff;border-radius:50%;position:relative;z-index:1}.ds-now .ds-dot{background:#d8231f;border-color:#d8231f}.ds-stop h3{margin:0;font-size:1.6rem;font-weight:800;font-stretch:85%;letter-spacing:-.015em;line-height:1.1}.ds-stop p{margin:.6rem 0 0}"
     },
     {
-      "name": "Section Heading",
+      "name": "Timetable Table",
       "kind": "custom",
-      "description": "Headline above a hairline rule; the only section divider.",
-      "html": "<section class=\"ds-section\"><h2>What I do now</h2></section>",
-      "css": ".ds-section { margin-top: 1rem; padding-top: 2.25rem; border-top: 1px solid #e2e6e3; } .ds-section h2 { margin: 0 0 1.1rem; font-size: 1.45rem; font-weight: 650; letter-spacing: -.015em; line-height: 1.25; color: #1d2220; }"
+      "refersTo": "label",
+      "description": "Problem, Approach, Result under a 3px ink head rule with 1px row rules.",
+      "html": "<table class=\"ds-tt\"><thead><tr><th>Problem</th><th>Approach</th><th>Result</th></tr></thead><tbody><tr><td>Duplicate bookings</td><td>Idempotency keys</td><td>Zero duplicates</td></tr></tbody></table>",
+      "css": ".ds-tt{width:100%;border-collapse:collapse;font-family:Archivo,system-ui,sans-serif;color:#121212}.ds-tt th{text-align:left;padding:0 1.5rem .6rem 0;border-bottom:3px solid #121212;font-size:.72rem;font-weight:700;font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;color:#6b6b67}.ds-tt td{padding:1rem 1.5rem 1rem 0;border-bottom:1px solid #dcdcd8;vertical-align:top}.ds-tt td:first-child{font-weight:750;font-stretch:90%}.ds-tt td:nth-child(2){color:#4b4b48}.ds-tt td:last-child{font-weight:600}.ds-tt tr:hover td{background:#f3f3f1}"
+    },
+    {
+      "name": "Closing Band",
+      "kind": "card",
+      "refersTo": "close-band",
+      "description": "Black block with heading, sentence, and primary plus secondary action.",
+      "html": "<section class=\"ds-close\"><div><h2>Hiring for a backend role?</h2><p>Email or LinkedIn both reach me.</p></div><div class=\"ds-actions\"><a class=\"ds-cb ds-cbp\" href=\"#\">Email</a><a class=\"ds-cb\" href=\"#\">LinkedIn</a></div></section>",
+      "css": ".ds-close{background:#121212;color:#fff;padding:2.5rem;display:grid;grid-template-columns:1fr auto;gap:1.5rem 3rem;align-items:end;font-family:Archivo,system-ui,sans-serif}.ds-close h2{margin:0;font-size:2.4rem;font-weight:800;font-stretch:80%;letter-spacing:-.025em;line-height:1}.ds-close p{margin:.9rem 0 0;color:#c9c9c5}.ds-actions{display:flex;gap:.75rem}.ds-cb{padding:.85rem 1.15rem;border:2px solid #fff;background:#121212;color:#fff;font-weight:700;font-stretch:90%;text-decoration:none;transition:background-color .2s,color .2s}.ds-cb:hover{background:#fff;color:#121212}.ds-cbp{background:#d8231f;border-color:#d8231f}.ds-cbp:hover{background:#fff;border-color:#fff;color:#121212}.ds-cb:focus-visible{outline:2px solid #d8231f;outline-offset:3px}"
     }
   ],
   "narrative": {
-    "northStar": "The Personal Letter",
-    "overview": "One left-aligned reading column (40rem) on a cool near-white ground, set entirely in Hanken Grotesk. The visitor meets a person first and the structure second. Sections are separated by hairline rules and generous space, never by boxes, cards, or pills. A single deep green carries every link and the one filled action per view; dark mode mirrors the same roles with a lifted mint green.\n\nHierarchy comes from size and weight steps only. Motion is limited to underline and color transitions on one soft ease-out (cubic-bezier(.16, 1, .3, 1), 200-250ms). Resume page must print to a clean one-column A4 PDF, so every screen rule has a monochrome print fallback.",
+    "northStar": "The Timetable",
+    "overview": "The site is a Kursbuch page: white paper, black ink, ruled rows, and a vertical route line with a station dot per company. Dates are departures, set in tabular figures. The current role is the train on the platform. Density is calm and editorial, with generous vertical gaps between ruled sections and a fixed 8.5rem left column that holds dates. One neo-grotesk (Archivo, variable weight and width) does all the work. Depth comes from rules and ink, not shadow. Red appears only for \"now\" and the primary action.",
     "keyCharacteristics": [
-      "One column, one typeface, one accent.",
-      "Hairline rules and whitespace instead of containers.",
-      "Weight and size steps (400, 550, 600, 650, 700) in place of display faces.",
-      "Light and dark are the same system with mirrored roles.",
-      "Print is a first-class output: nav, footer, and buttons drop; accent becomes black."
+      "Ruled structure: 3px ink rules open sections, 1px grey rules separate rows.",
+      "Left date column (8.5rem) aligned across board, route, post list, and resume.",
+      "Square corners everywhere except the station dots.",
+      "Tabular figures set on body, so every date and number aligns.",
+      "Print parity: the resume page drops chrome and becomes the PDF."
     ],
     "rules": [
-      { "name": "The One Green Rule", "body": "Green appears only on interactive or status elements (links, the primary button, the availability dot, focus, selection). Never as a section fill or decorative accent.", "section": "colors" },
-      { "name": "The Mirror Rule", "body": "Every light token has a dark twin under the same custom-property name; new surfaces use the property, never a literal.", "section": "colors" },
-      { "name": "The Steps-Not-Faces Rule", "body": "Emphasis is a size or weight step within Hanken Grotesk; never a second family or case styling.", "section": "typography" },
-      { "name": "The Measure Rule", "body": "Text lives in the 40rem column; contact paragraph caps at 34rem.", "section": "typography" }
+      { "name": "The One Signal Rule", "body": "Red marks \"now\" or the one action to take, and nothing else. It is never decoration, never a section color.", "section": "colors" },
+      { "name": "The Width Ladder Rule", "body": "Hierarchy is weight plus font-stretch: 78-85% for display and headings, 90-95% for sub-lines and buttons, 100% for reading text.", "section": "typography" },
+      { "name": "The Tabular Rule", "body": "font-variant-numeric: tabular-nums stays on at the body level so dates and metrics line up.", "section": "typography" },
+      { "name": "The Flat Paper Rule", "body": "Surfaces never lift. State change is a fill swap (white to ink, red to deep red) or a rule, never a shadow.", "section": "elevation" }
     ],
     "dos": [
-      "Do separate sections with a 1px `rule` and spacing, not containers.",
-      "Do reference custom properties (`--fg`, `--accent`, `--rule`) so dark mode and print follow.",
-      "Do keep one filled button per action row and use text links for the rest.",
-      "Do give every new screen rule a print fallback if it can appear on the resume."
+      "Do use red only for the current role or position, status, and the single primary action.",
+      "Do keep dates in the left column in tabular figures.",
+      "Do separate sections with 3px ink rules and rows with 1px Rule Grey.",
+      "Do keep corners square and reserve circles for station dots.",
+      "Do keep focus visible: 2px signal outline with 3px offset.",
+      "Do keep the resume print-clean: hide header, footer, and .no-print controls; use mm and pt units."
     ],
     "donts": [
-      "Don't add cards, skill pills, photo hero, or box shadows; the build uses none.",
-      "Don't introduce a second typeface or all-caps labels.",
-      "Don't use green for decoration, backgrounds, or non-interactive text.",
-      "Don't animate beyond color and underline transitions."
+      "Don't add shadows, gradients, or blur.",
+      "Don't add a second accent color or color the sections.",
+      "Don't introduce a serif or a mono display face.",
+      "Don't add avatars, skill pills, or logo walls; proof is resume facts only.",
+      "Don't use red for body-size link text on white; use Signal Ink."
     ]
   }
 }

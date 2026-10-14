@@ -10,7 +10,7 @@ I wanted a place to keep my resume and write things down. The requirements were 
 
 - **Server:** a small Tencent Cloud VPS running Debian 13.
 - **Web server:** [Caddy](https://caddyserver.com). It serves a folder of HTML files and handles HTTPS certificates by itself.
-- **Site generator:** [Hugo](https://gohugo.io). No theme, just five small layout files.
+- **Site generator:** [Hugo](https://gohugo.io). No theme, just four small layout files.
 - **Deploy:** a GitHub Action that builds the site and copies it to the server with `rsync`.
 
 Source is at [github.com/enrinal/nal](https://github.com/enrinal/nal).
