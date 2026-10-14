@@ -14,6 +14,17 @@ summary: >-
   At Tiket.com I own the core flight booking services, which handle over 100,000 bookings a day, and I work
   closely with the Hotel and Promo teams on cross-vertical projects.
 
+# Home page copy. Restates resume facts in plain first-person English; no new claims.
+intro:
+  - I'm a senior backend engineer in Jakarta with 8+ years of building booking and payment systems in Go and Java.
+  - At Tiket.com I own the core flight booking services, which handle over 100,000 bookings a day. Most of my work is about keeping bookings correct through retries, failures, and peak traffic. I also work with the Hotel and Promo teams on projects where flights, hotels, and promos have to work together.
+now:
+  - Designed server-side carts for flight checkout, so travelers can come back to an abandoned cart or recover an expired one in one tap.
+  - Made booking idempotent, so a retried request returns the original booking instead of booking the same order twice with the airline.
+  - Fixed an off-heap memory leak that crashed every flight-cart pod about 12 times a month.
+  - Built booking health dashboards and alerts that catch drops in supplier success or order creation early.
+  - I lead design reviews, on-call, and post-mortems for a team of five engineers.
+
 experience:
   - company: Tiket.com
     place: Jakarta, Indonesia
@@ -35,7 +46,7 @@ experience:
           - Cut Redis memory by about 75% with Brotli payload compression and jittered TTLs that prevent cache stampedes at peak traffic; later adopted by other verticals.
           - Led the Flight + Hotel package booking, a cross-vertical project spanning two independent booking systems. Built a saga orchestrator in Go with compensating transactions, eliminating charged-but-unbooked orders.
           - Built a rule-based pricing engine for add-ons that lets product teams launch pricing changes without a deployment, lifting upsell conversion by about 13%.
-    stop: Core flight booking services, over 100,000 bookings a day.
+    stop: Cut database p99 latency by 40% and Redis memory by about 75%, and led the Flight + Hotel package booking.
 
   - company: SiCepat Express
     place: Jakarta, Indonesia
@@ -47,7 +58,7 @@ experience:
         items:
           - Built idempotent event processing for shipment tracking on Kafka and Redis, so no event is lost or applied twice, improving shipment status accuracy by about 25%.
           - Built an OCR pipeline to verify merchant ID cards automatically, cutting merchant onboarding time by about 50%.
-    stop: Idempotent shipment-tracking events on Kafka and Redis.
+    stop: Built shipment tracking events that are never lost or applied twice, improving status accuracy by about 25%.
 
   - company: Warung Pintar
     place: Jakarta, Indonesia
@@ -59,7 +70,7 @@ experience:
         items:
           - Built the event-driven backend for the merchant sales platform, which scaled without a redesign as GMV grew 60%.
           - Built Kafka-based notification and wallet services processing over 100,000 messages a day.
-    stop: Event-driven merchant sales platform; wallet and notifications on Kafka.
+    stop: Built the event-driven backend for the merchant sales platform, plus wallet and notification services on Kafka.
 
   - company: Angsur
     place: Bandar Lampung, Indonesia
@@ -70,7 +81,7 @@ experience:
         dates: Jan 2018 – Oct 2019
         items:
           - Built REST APIs and internal tools for credit underwriting, reducing credit validation time by about 30%.
-    stop: Credit underwriting APIs and internal tools.
+    stop: Built APIs and internal tools that cut credit validation time by about 30%.
 
 teaching:
   company: Ruangguru
@@ -78,27 +89,6 @@ teaching:
   title: Backend Engineering Instructor, part-time
   dates: Feb 2022 – Jul 2024
   text: Designed a backend course on Go, system design, and production operations, and mentored 5 university cohorts.
-
-# Home page "notable work" table. Every row restates a resume bullet; no new claims.
-notable:
-  - what: Idempotent flight booking
-    how: Distributed lock and request coalescing
-    result: Retries across all 7 booking API versions return the original booking
-  - what: MongoDB consolidation
-    how: One cluster, data model without cross-database joins
-    result: p99 latency −40%, database cost about −30%
-  - what: Redis memory
-    how: Brotli payload compression, jittered TTLs
-    result: Memory about −75%, no cache stampedes at peak
-  - what: Flight + Hotel package booking
-    how: Saga orchestrator in Go with compensating transactions
-    result: No more charged-but-unbooked orders
-  - what: Netty off-heap memory leak
-    how: Root-caused and fixed in flight-cart
-    result: Ended pod crashes that hit about 12 times a month
-  - what: Add-on pricing engine
-    how: Rule-based, changes ship without a deployment
-    result: Upsell conversion about +13%
 
 skills:
   - label: Languages
