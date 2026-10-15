@@ -1,0 +1,21 @@
+layouts/home.html
+  s_3322370e90d6ab::t_e51393c8bc8fcd 142
+layouts/resume.html
+  s_3322370e90d6ab::t_6f83271400fd0f 65-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "effdb51974a591ee08e78163688e1ad56db5e9b6",
+  "prompts": {},
+  "sessions": {
+    "s_3322370e90d6ab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "39d041e2-38e7-47b0-9b12-a49cee14ca97",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "enrinal <muhamadenrinal@gmail.com>"
+    }
+  }
+}
