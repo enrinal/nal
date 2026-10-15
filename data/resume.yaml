@@ -1,4 +1,4 @@
-# Single source for the home page and /resume/. Mirrors Resume_Muhamad_Enrinal_Z_INTL_v3.tex (Oct 2026).
+# Single source for the home page and /resume/. Mirrors Resume_Muhamad_Enrinal_Z_INTL_v4_2page.tex (Oct 2026).
 # The phone number is deliberately left out: this file is published.
 name: Muhamad Enrinal Zulhimar
 title: Senior Backend Engineer
@@ -13,7 +13,8 @@ summary: >-
   Senior backend engineer with 8+ years building distributed booking and payment systems in Go and Java.
   Owns the core flight booking services at Tiket.com, which handle 50,000 to 75,000 flight bookings a day and
   5x surges at holiday peaks. Known for making the booking path reliable, with idempotent booking, failure
-  recovery, and health monitoring.
+  recovery, and health monitoring. Also builds the team's AI agent tooling, including an MCP server and a
+  Claude Code plugin.
 
 experience:
   - company: Tiket.com
@@ -21,13 +22,14 @@ experience:
     from: 2022
     to: now
     roles:
-      - title: Senior Backend Engineer II
+      - title: Senior Software Engineer II, Backend
         dates: Jul 2026 – Present
         items:
           - Designed and built server-side cart management for flight checkout so users can recover an expired cart in one tap and get a reminder when they abandon one, improving the look-to-book ratio by about 15%.
           - Made booking idempotent across all 7 booking API versions to close a race condition that could book the same order twice with the airline, cutting duplicates from 100–200 a day to zero.
           - Fixed a memory leak outside the Java heap that crashed every flight-cart pod about 12 times a month. The cause was HTTP responses that were never released and compression that fragmented memory. Crashes dropped to zero.
           - Built booking health monitoring across 4 flight services that alerts on drops in supplier booking success and order creation, so the team detects booking incidents within 5 minutes.
+          - Built the flight team's AI agent toolkit and knowledge base, so engineers investigate incidents and run team workflows through AI agents. Both are used by every engineer on the flight team and listed under Projects.
           - Led system design reviews, wrote architecture decision records, ran on-call and incident post-mortems, and interviewed backend candidates, in a team of 5 engineers.
       - title: Senior Software Engineer, Backend
         dates: Aug 2022 – Jul 2026
@@ -38,7 +40,6 @@ experience:
           - Created a rule-based pricing engine for add-ons that lets product teams launch pricing changes without a deployment, lifting upsell conversion by about 13%.
           - Cut Redis memory from 48% to 15% of capacity with Snappy compression, and prevented cache stampedes.
           - Shipped real-time anomaly detection on Kafka that auto-blocks booking bursts from one device and IP.
-          - Proposed the technical direction for Flight-Core, recommending incremental migration over a full Go rewrite.
     stop: Core flight booking services, 50,000 to 75,000 bookings a day.
 
   - company: SiCepat Express
@@ -75,7 +76,39 @@ experience:
           - Built credit underwriting APIs, cutting credit validation time by about 30%.
     stop: Credit underwriting APIs and internal tools.
 
-teaching: Go and system design instructor (part-time, 2022–2024) in a Ruangguru program run with Indonesia's Ministry of Education, mentoring 200 university students across 5 batches.
+teaching:
+  company: Ruangguru
+  place: Jakarta, Indonesia
+  title: Go and System Design Instructor, part-time
+  dates: 2022 – 2024
+  text: Taught Go and system design in a program run with Indonesia's Ministry of Education, mentoring 200 university students across 5 batches.
+
+projects:
+  - name: Flight Team AI Agent Toolkit
+    place: Tiket.com
+    meta: Internal developer tool · Claude Code plugin, MCP server, Python
+    year: 2026
+    items:
+      - An internal tool that lets AI agents read production systems and handle routine team work, used by every flight engineer. Before it, engineers investigating an incident opened Kibana, the production MongoDB explorer, Grafana, Slack and Jenkins by hand.
+      - Built an MCP server in standard-library Python that gives AI agents typed tools for all of those consoles. It signs in with the engineer's own browser session, so the team does not need shared API tokens.
+      - Packaged it with 22 agent skills and 9 agent rules as a Claude Code plugin that also installs into Cursor and OpenCode. The skills write Jira stories, RFCs and deployment tickets in the team format and find why a pull request failed CI.
+  - name: Flight Team Knowledge Base
+    place: Tiket.com
+    meta: Internal knowledge base · Markdown, git, context engineering for AI agents
+    year: 2026
+    items:
+      - A shared knowledge base that every flight engineer and their AI agents read. Before it, knowledge about the team's services was spread across Confluence pages, Slack threads and individual engineers.
+      - Built a page for each of 21 flight services and a map of how a booking moves from search to ticket issuance, down to file and line, and ported on-call playbooks for every flight domain from Confluence.
+      - Added git hooks that check every note before commit, so the knowledge base stays consistent as engineers and agents write to it.
+  - name: Kestrel, a native macOS client for Apache Kafka
+    place: github.com/enrinal/kestrel
+    link: https://github.com/enrinal/kestrel
+    meta: Personal open-source project, MIT license · Swift 6, SwiftUI, librdkafka · built with Claude Code
+    year: 2026
+    items:
+      - A Mac app for exploring Kafka clusters, so engineers can browse topics, records and consumer groups in a real window instead of a browser tab or the output of Kafka's shell scripts.
+      - Built it in Swift 6 and SwiftUI on top of librdkafka, with a command-line tool that shares the same engine. It decodes Avro through Schema Registry, shows consumer group lag, and manages Kafka Connect connectors.
+      - Made clusters with 2,000 topics usable by filtering the sidebar and limiting how many rows it draws, and shipped three releases as a self-contained disk image that runs on any Mac without Homebrew.
 
 # Home page "notable work" table. Every row restates a resume bullet; no new claims.
 notable:
@@ -103,11 +136,13 @@ notable:
 
 skills:
   - label: Languages
-    text: Go, Java (Spring Boot, Spring WebFlux, Project Reactor), Python, SQL
+    text: Go, Java (Spring Boot, Spring WebFlux, Project Reactor), Python, Swift, SQL
   - label: Data and messaging
     text: MongoDB, PostgreSQL, Redis, Elasticsearch, Kafka, NATS
   - label: Infrastructure
     text: GCP, Kubernetes, Docker, microservices, gRPC, GraphQL, Grafana, distributed tracing, SLO alerting
+  - label: AI engineering
+    text: Claude Code, Cursor, MCP servers, agent skills, agentic workflows, context engineering
 
 education: B.Eng. Informatics Engineering, Institut Teknologi Sumatera, 2020, Cum Laude (GPA 3.66/4.00)
 awards: ICPC Asia Jakarta Regional finalist, ranked 21st
