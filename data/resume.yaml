@@ -75,12 +75,7 @@ experience:
           - Built credit underwriting APIs, cutting credit validation time by about 30%.
     stop: Credit underwriting APIs and internal tools.
 
-teaching:
-  company: Ruangguru
-  place: Jakarta, Indonesia
-  title: Go and System Design Instructor, part-time
-  dates: 2022 – 2024
-  text: Taught Go and system design in a Ruangguru program run with Indonesia's Ministry of Education, mentoring 200 university students across 5 batches.
+teaching: Go and system design instructor (part-time, 2022–2024) in a Ruangguru program run with Indonesia's Ministry of Education, mentoring 200 university students across 5 batches.
 
 # Home page "notable work" table. Every row restates a resume bullet; no new claims.
 notable:

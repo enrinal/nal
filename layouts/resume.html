@@ -90,17 +90,6 @@
     </div>
   </section>
 
-  {{ with $r.teaching }}
-  <section>
-    <h2>Teaching</h2>
-    <div class="job">
-      <div class="job-line"><h3>{{ .company }}</h3><span>{{ .place }}</span></div>
-      <div class="role-line">{{ .title }}<span>{{ .dates }}</span></div>
-      <p style="margin-top:.35rem">{{ .text }}</p>
-    </div>
-  </section>
-  {{ end }}
-
   <section>
     <h2>Skills</h2>
     <dl>{{ range $r.skills }}<dt>{{ .label }}</dt><dd>{{ .text }}</dd>{{ end }}</dl>
@@ -108,7 +97,7 @@
 
   <section>
     <h2>Education</h2>
-    <dl><dt>Degree</dt><dd>{{ $r.education }}</dd><dt>Awards</dt><dd>{{ $r.awards }}</dd></dl>
+    <dl><dt>Degree</dt><dd>{{ $r.education }}</dd><dt>Teaching</dt><dd>{{ $r.teaching }}</dd><dt>Awards</dt><dd>{{ $r.awards }}</dd></dl>
   </section>
 </article>
 {{ end }}
